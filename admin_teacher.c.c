@@ -23,7 +23,7 @@ int main(void)
     fseek(fp,0,2);
     while (valid=='Y' || valid=='y')
     {
-        int n,n_student,k;
+        int n,n_student,k,i;
         printf("\nEnter the Teacher id: ");
         scanf("%s",teacher_id);
         fflush(stdin);
@@ -42,7 +42,7 @@ int main(void)
         t_lenght = 29-strlen(teacher_id);//This line is for finding the last bytes of string out of 30
         position = strlen(teacher_id); // This line is for finding the
         position = position+t_lenght;
-        for (k=1;k<n_student;k++)
+        for (k=1;k<=n_student;k++)
         {
 
             itoa(k,roll_no,10);
@@ -64,6 +64,14 @@ int main(void)
             fputs(subject,fp);
             fseek(fp,position+150,0);
             fputs("\n",fp);
+            if (k==n_student)
+            {
+                for (i=0;i<219;i++)
+                {
+                    fputs("0",fp);
+                }
+                fputs("\n",fp);
+            }
         }
         printf("Do you want to enter another Teacher record? (Y/N): ");
         fflush(stdin);
