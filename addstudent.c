@@ -15,38 +15,39 @@ int main(void)
     int sr_lenght;
     int sn_lenght;
     char dump[3];
+    int n1,n2;
     fp = fopen("data.txt","r+");
     if (fp==NULL)
     {
         printf("Error");
     }
-    fseek(fp,-2,2);
-    fgets(dump,3,fp);
-	int n = atoi(dump);
-    printf("%d",n);
-    int number = n;
-    int i=1,i2=-1;
-    while (number>0)
+    fseek(fp,0,0);
+    fscanf(fp,"%d %d",&n1,&n2);
+    printf("%d \n%d",n1,n2);
+    int s_number = n1;
+    int n;
+    int number2= n2;
+    int i=2,i2=1;
+    while (s_number>0)
     {
         rewind(fp);
-        position=(220*i)-180+i2;
+        position=(210*i)-170+i2;
         fseek(fp,position,0);
-        fgets(s_registration,30,fp);
-                if (s_registration[0]=='0')
-        {
-            break;
-        }
-        printf("Enter the Record for this registration no %s\n",s_registration);
+        printf("%d",ftell(fp));
+        fgets(s_registration,20,fp);
+
+        printf("\nEnter the Record for this registration no %s: ",s_registration);
         gets(student_name);
-        position2 =(220*i)-120+i2;
-        fseek(fp,position2,0);
-        fputs(student_name,fp);
-        position3 =(220*(i+n))-120+(i2+n);
-        fseek(fp,position3,0);
-        fputs(student_name,fp);
+        n=0;
+        for (number2=n2;number2>0;number2--)
+        {
+            position3 =(210*(i+n))-100+(i2+n);
+            fseek(fp,position3,0);
+            fputs(student_name,fp);
+            n = n1+n;
+        }
         i++;i2++;
-        number--;
-        //printf("%d",position2);
+        s_number--;
     }
     fclose(fp);
 }
