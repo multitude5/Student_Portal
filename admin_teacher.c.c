@@ -7,43 +7,61 @@ int main(void)
     FILE *fp;
     int t_lenght,position;
     int m_subject,n_student;
-    int l=0;
+    int i;
     char teacher_id[30];
-    char student_id[30];
-    char subject[30];
+    char regno_student[30];
+    char course_titile[30];
     char batch[5]="";
     char degree[5]="";
-
     char dump3[5]="";
-    int teacher_pas;
+    char dump4[5]="";
+    char credit[2];
+    char teacher_pas[8];
+    int count;
     fp = fopen("data.txt","w");
     if (fp==NULL)
     {
         printf("Error");
     }
-    printf("\nHow many student you want to Register in this class: ");
+    printf("\nNo of Students: ");
     scanf("%d",&n_student);
     fflush(stdin);
-    printf("\nEnter batch of Students: ");
+    printf("\nBatch: ");
     scanf("%s",batch);
     fflush(stdin);
-    printf("\nEnter degree: ");
+    printf("\nDegree: ");
     scanf("%s",degree);
     fflush(stdin);
-    printf("\nEnter the maximum no of subject: ");
+    printf("\nNO of Courses: ");
     scanf("%d",&m_subject);
     fflush(stdin);
-    fseek(fp,0,2);
-    while (l<m_subject)
+    itoa(n_student,dump3,10);
+    itoa(m_subject,dump4,10);
+    count = log10(n_student) + log10(m_subject)+3;
+    i = 210-count;
+    fputs(dump3,fp);
+    fputs(" ",fp);
+    fputs(dump4,fp);
+    fseek(fp,i,1);
+    fputs("\n",fp);
+    while (m_subject>0)
     {
         int n,k,i;
-        printf("\nEnter the Teacher id: ");
+        printf("\nTeacher ID: ");
         scanf("%s",teacher_id);
         fflush(stdin);
-        printf("\nName of subject this teacher is teaching: ");
-        gets(subject);
+        printf("\nPassword: ");
+        scanf("%s",teacher_pas);
         fflush(stdin);
-        t_lenght = 59-strlen(teacher_id);//This line is for finding the last bytes of string out of 30
+        printf("\nCourse Title: ");
+        gets(course_titile);
+        fflush(stdin);
+        printf("\nCredit: ");
+        scanf("%d",&i);
+        fflush(stdin);
+        itoa(i,credit,10);
+        strcat(teacher_id,teacher_pas);
+        t_lenght = 39-strlen(teacher_id);//This line is for finding the last bytes of string out of 30
         position = strlen(teacher_id); // This line is for finding the
         position = position+t_lenght;
         for (k=1;k<=n_student;k++)
@@ -63,29 +81,22 @@ int main(void)
                 strcat(dump1,roll_no);
                 strcpy(roll_no,dump1);
             }
-            strcat(strcat(strcat(strcat(strcpy(student_id,batch),"-"),degree),"-"),roll_no);
-            printf("%s",student_id);
+            strcat(strcat(strcat(strcat(strcpy(regno_student,batch),"-"),degree),"-"),roll_no);
+            printf("%s",regno_student);
             fputs(teacher_id,fp);
             position = ftell(fp)+t_lenght;
             fseek(fp,position,0);
-            position = position+30;
-            fputs(student_id,fp);
+            fputs(regno_student,fp);
+            position = position+20;
             fseek(fp,position,0);
-            fputs(subject,fp);
-            fseek(fp,position+150,0);
+            fputs(course_titile,fp);
+            position = position+30;
+            fseek(fp,position,0);
+            fputs(credit,fp);
+            fseek(fp,position+120,0);
             fputs("\n",fp);
         }
-        l++;
-        if (m_subject==l)
-        {
-            for (i=0;i<235;i++)
-            {
-                fputs("0",fp);
-            }
-            itoa(n_student,dump3,10);
-            fputs(dump3,fp);
-        }
-
+        m_subject--;
     }
         fclose(fp);
 }
