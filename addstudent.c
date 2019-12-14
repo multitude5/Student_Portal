@@ -31,7 +31,7 @@ int main(void)
     while (s_number>0)
     {
         rewind(fp);
-        position=(210*i)-170+i2;
+        position=(280*i)-240+i2;
         fseek(fp,position,0);
         printf("%d",ftell(fp));
         fgets(s_registration,20,fp);
@@ -41,7 +41,7 @@ int main(void)
         n=0;
         for (number2=n2;number2>0;number2--)
         {
-            position3 =(210*(i+n))-100+(i2+n);
+            position3 =(280*(i+n))-180+(i2+n);
             fseek(fp,position3,0);
             fputs(student_name,fp);
             n = n1+n;
