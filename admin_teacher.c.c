@@ -38,7 +38,7 @@ int main(void)
     itoa(n_student,dump3,10);
     itoa(m_subject,dump4,10);
     count = log10(n_student) + log10(m_subject)+3;
-    i = 210-count;
+    i = 279-count;
     fputs(dump3,fp);
     fputs(" ",fp);
     fputs(dump4,fp);
@@ -90,13 +90,17 @@ int main(void)
             position = position+20;
             fseek(fp,position,0);
             fputs(course_titile,fp);
-            position = position+30;
+            position = position+60;
             fseek(fp,position,0);
             fputs(credit,fp);
-            fseek(fp,position+120,0);
+            fseek(fp,position+160,0);
             fputs("\n",fp);
         }
         m_subject--;
+        for (i=279;i>0;i--)
+        {
+            fputs("0",fp);
+        }
     }
         fclose(fp);
 }
