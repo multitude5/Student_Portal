@@ -13,6 +13,7 @@ int main(void)
     char student_r[20];
     char studen_name[20];
     char attadence[1];
+    char marks[5];
     fp = fopen("data.txt","r+");
     int position;
     if (fp==NULL)
@@ -34,7 +35,9 @@ int main(void)
         //printf("%d",s_registration);
         if (!strcmp(t_id,s_registration))
         {
-            i2--;
+            int dum1= i;
+            int dum2=--i2;
+            //printf("%d",dum2);
             int k;
             gotoxy(40,1);
             printf("Press One For Attendance");
@@ -77,6 +80,9 @@ int main(void)
             }
             else if (k=2)
             {
+                int m;
+
+
                 printf("Enter the marks!");
                 int s=1;
                 while (1)
@@ -99,11 +105,45 @@ int main(void)
                     s++;i++;i2++;
 
                 }
-                while(1)
+                printf("Enter the Number:");
+                scanf("%d",&s);
+                i2 = dum2+s;
+                i = dum1+s;
+                dum1 = 152;
+                for (m=1;m<5;m++)
                 {
-                    
+                    printf("\nAssignment#%-15d",m);
+                    position=(280*i)-dum1+i2;
+                    fseek(fp,position,0);
+                    scanf("%s",marks);
+                    fprintf(fp,"%s",marks);
+                    dum1-=8;
                 }
+                for (m=1;m<5;m++)
+                {
+                    printf("\nQuiz#%-15d",m);
+                    position=(280*i)-dum1+i2;
+                    fseek(fp,position,0);
+                    scanf("%s",marks);
+                    fprintf(fp,"%s",marks);
+                    dum1-=8;
+                }
+                for (m=1;m<3;m++)
+                {
+                    printf("\nSessional#%-15d",m);
+                    position=(280*i)-dum1+i2;
+                    fseek(fp,position,0);
+                    scanf("%s",marks);
+                    fprintf(fp,"%s",marks);
+                    dum1-=8;
+                }
+                printf("Terminals");
+                position=(280*i)-dum1+i2;
+                fseek(fp,position,0);
+                scanf("%s",marks);
+                fprintf(fp,"%s",marks);
             }
+            break;
         }
         else if (s_registration[0]=='0')
         {
