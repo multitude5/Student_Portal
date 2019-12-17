@@ -8,11 +8,11 @@ int main(void)
     FILE *fp;
     int x,y;
     char dump[3];
-    char t_id[15]="aksam@cui.com3";
+    char t_id[15]="ifthar@cui.com";
     char s_registration[15];
     char student_r[20];
     char studen_name[20];
-    char attadence[3];
+    char attadence[1];
     fp = fopen("data.txt","r+");
     int position;
     if (fp==NULL)
@@ -20,32 +20,42 @@ int main(void)
         printf("Error");
     }
     fseek(fp,0,0);
-    int n,n2;
-    fscanf(fp,"%d",&n);
+    int n,n2,n_a;;
+    fscanf(fp,"%d %d %d",&n,&n2,&n_a);
     int s_number = n;
     int i=2,i2=1;
-    int dum=10;
+    int dum=0;
     while (1)
     {
         rewind(fp);
         position=(280*i)-280+i2;
         fseek(fp,position,0);
         fgets(s_registration,15,fp);
+        //printf("%d",s_registration);
         if (!strcmp(t_id,s_registration))
         {
-            int j,n_a=60;
-            int dump1 = i;
-            int dump2 = --i2;
-            printf("Enter Attendance\n");
-            printf("Enter the number of Attendance do you want to enter:  ");
-            scanf("%d",&j);
-            for (;j>0;j--)
+            i2--;
+            int k;
+            gotoxy(40,1);
+            printf("Press One For Attendance");
+            gotoxy(35,2);
+            printf("Press Two For Entering Marks\n");
+            gotoxy(39,3);
+            scanf("%d",&k);
+            if (k==1)
             {
+                printf("Enter Attendance\n");
                 printf("NAME                                         REGISTRATION NO       ATTEDENDANCE");
-                i = dump1; i2 = dump2;
-                for (n=s_number;n>0;n--)
+                while (1)
                 {
                     rewind(fp);
+                    position=(280*i)-280+(i2+1);
+                    fseek(fp,position,0);
+                    fgets(s_registration,15,fp);
+                    if (strcmp(t_id,s_registration))
+                    {
+                        break;
+                    }
                     position=(280*i)-240+i2;
                     fseek(fp,position,0);
                     fgets(student_r,20,fp);
@@ -61,15 +71,45 @@ int main(void)
                 }
                 system("cls");
                 n_a -=2;
+                rewind(fp);
+                fprintf(fp,"%d %d %d",n,n2,n_a);
+                break;
             }
+            else if (k=2)
+            {
+                printf("Enter the marks!");
+                int s=1;
+                while (1)
+                {
+                    rewind(fp);
+                    position=(280*i)-280+(i2+1);
+                    fseek(fp,position,0);
+                    fgets(s_registration,15,fp);
+                    if (strcmp(t_id,s_registration))
+                    {
+                        break;
+                    }
+                    position=(280*i)-240+i2;
+                    fseek(fp,position,0);
+                    fgets(student_r,20,fp);
+                    position=(280*i)-179+i2;
+                    fseek(fp,position,0);
+                    fgets(studen_name,20,fp);
+                    printf("\n%-2d %-45s%-25s",s,studen_name,student_r);
+                    s++;i++;i2++;
 
-            break;
+                }
+                while(1)
+                {
+                    
+                }
+            }
         }
         else if (s_registration[0]=='0')
         {
             break;
         }
-        i++;i2++;dum--;
+        i++;i2++;dum++;
     }
 }
 
