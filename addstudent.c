@@ -23,7 +23,6 @@ int main(void)
     }
     fseek(fp,0,0);
     fscanf(fp,"%d %d",&n1,&n2);
-    printf("%d \n%d",n1,n2);
     int s_number = n1;
     int n;
     int number2= n2;
@@ -31,12 +30,11 @@ int main(void)
     while (s_number>0)
     {
         rewind(fp);
-        position=(280*i)-240+i2;
+        position=(280*i)-241+i2;
         fseek(fp,position,0);
-        printf("%d",ftell(fp));
-        fgets(s_registration,20,fp);
+        fscanf(fp,"%s ",s_registration);
 
-        printf("\nEnter the Record for this registration no %s: ",s_registration);
+        printf("\nEnter the Name for this registration no %s:",strupr(s_registration));
         gets(student_name);
         n=0;
         for (number2=n2;number2>0;number2--)
