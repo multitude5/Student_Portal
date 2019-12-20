@@ -14,8 +14,8 @@ int main(void)
     char dump[3];
     char t_id[30];
     char password[10];
-    char teacher_id[40]="akzar@cui.com398u2t";
-    char cteacher_id[40];
+    char pass[30];
+    char cteacher_id[30];
     char student_reg[20];
     char studen_name[20];
     char attadence[1];
@@ -34,22 +34,32 @@ int main(void)
     int i=2,i2=0;
     int dum=0;
     printbox();
-    gotoxy(25,7);
+    gotoxy(26,6);
     scanf("%s",t_id);
-    gotoxy(25,9);
+    gotoxy(26,8);
     scanf("%s",password);
     system("cls");
+    char teacher_id[30];
+    strcpy(teacher_id,t_id);
+   //printf("%s\n",teacher_id);
     while (1)
     {
         rewind(fp);
         position=(280*i)-280+i2;
         fseek(fp,position,0);
-        fscanf(fp,"%s ",cteacher_id);
-        if (!strnicmp(teacher_id,cteacher_id,strlen(cteacher_id)))
+        fscanf(fp,"%s",cteacher_id);
+        //printf("%s\n",cteacher_id);
+        if (!strnicmp(cteacher_id,teacher_id,strlen(cteacher_id)))
         {
             int dum1= i;
             int dum2=i2;
             int k;
+            position=(280*i)-265+i2;
+            fseek(fp,position,0);
+            fscanf(fp,"%s",pass);
+            if (strcmp(pass,password))
+            {
+
             char *name = strupr(strtok(cteacher_id,"@"));
             printtitle(name);
             gotoxy(18,7);
@@ -72,7 +82,7 @@ int main(void)
                     position=(280*i)-179+i2;
                     fseek(fp,position,0);
                     fgets(studen_name,20,fp);
-                    printf("\n%-45s%-25s",studen_name,student_reg);
+                    printf("\n%-45s%-25s",studen_name,strupr(student_reg));
                     position=(280*i)-n_a+i2;
                     scanf("%s",attadence);
                     fseek(fp,position,0);
@@ -137,7 +147,13 @@ int main(void)
                 printf("\nTerminals                |");
                 fnmarks(fp,i,dum1);
             }
-            break;
+            }
+            else
+            {
+                printf("Wrong Password");
+                break;
+            }
+
         }
         else if (cteacher_id[0]=='0')
         {
@@ -174,7 +190,7 @@ void Psubject(FILE *FP, int i, int i2)
 {
     int position;
     char subject[40];
-    position=(280*i)-220+i2;
+    position=(280*i)-215+i2;
     fseek(FP,position,0);
     fgets(subject,40,FP);
     printf("SUBJECT: %s\n\n",strupr(subject));
@@ -197,7 +213,7 @@ void printbox(void)
     gotoxy(15,5);
     printf("* * * * * * * * * * * * * * * * * \n");
     gotoxy(15,6);
-    printf("* USERNAME:                    *\n");
+    printf("* USERNAME:                     *\n");
     gotoxy(15,7);
     printf("*                               *\n");
     gotoxy(15,8);
