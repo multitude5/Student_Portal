@@ -121,31 +121,32 @@ int main(void)
                 system("cls");
                 i2 = dum2+s;
                 i = dum1+s-1;
-                dum1 = 152;
+                dum1 = 106;
                 printf("\nEnter Marks (0-10)!");
                 for (m=1;m<5;m++,k)
                 {
                     printf("\nAssignment#%d             |",m);
                     fnmarks(fp,i,dum1);
-                    dum1-=8;
+                    dum1-=3;
                 }
                 printf("\nEnter Marks (0-15)!");
                 for (m=1;m<5;m++)
                 {
                     printf("\nQuiz#%d                   |",m);
                     fnmarks(fp,i,dum1);
-                    dum1-=8;
+                    dum1-=3;
                 }
                 printf("\nEnter Marks (0-25)!");
                 for (m=1;m<3;m++)
                 {
                     printf("\nSessional#%d              |",m);
                     fnmarks(fp,i,dum1);
-                    dum1-=8;
+                    dum1-=3;
                 }
                 printf("\nEnter Marks (0-50)!");
                 printf("\nTerminals                |");
                 fnmarks(fp,i,dum1);
+                system("cls");
             }
             }
             else
