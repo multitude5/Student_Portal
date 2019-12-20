@@ -35,10 +35,9 @@ int main(void)
     printf("\nNO of Courses: ");
     scanf("%d",&m_subject);
     fflush(stdin);
-    fprintf(fp,"%d %d %d %d %d %d %d",n_student,m_subject,60,60,60,60);
-    count = log10(n_student) + log10(m_subject)+6;
-    i = 279-count;
-    fseek(fp,i,1);
+    fprintf(fp,"%d %d %d",n_student,m_subject,60);
+    count = 279-ftell(fp);
+    fseek(fp,count,1);
     fputs("\n",fp);
     while (m_subject>0)
     {
@@ -56,8 +55,7 @@ int main(void)
         scanf("%d",&i);
         fflush(stdin);
         itoa(i,credit,10);
-        strcat(teacher_id,teacher_pas);
-        t_lenght = 39-strlen(teacher_id);//This line is for finding the last bytes of string out of 30
+        t_lenght = 24-strlen(teacher_id);//This line is for finding the last bytes of string out of 30
         position = strlen(teacher_id); // This line is for finding the
         position = position+t_lenght;
         for (k=1;k<=n_student;k++)
@@ -78,18 +76,22 @@ int main(void)
                 strcpy(roll_no,dump1);
             }
             strcat(strcat(strcat(strcat(strcpy(regno_student,batch),"-"),degree),"-"),roll_no);
-            printf("%s",regno_student);
+            printf("%s\n",regno_student);
             fputs(teacher_id,fp);
+
             position = ftell(fp)+t_lenght;
+
             fseek(fp,position,0);
+            fputs(teacher_pas,fp);
+            fseek(fp,position+15,0);
             fputs(regno_student,fp);
-            position = position+20;
+            position = position+40;
             fseek(fp,position,0);
             fputs(course_titile,fp);
-            position = position+60;
+            position = position+110;
             fseek(fp,position,0);
             fputs(credit,fp);
-            fseek(fp,position+160,0);
+            fseek(fp,position+105,0);
             fputs("\n",fp);
         }
         m_subject--;
